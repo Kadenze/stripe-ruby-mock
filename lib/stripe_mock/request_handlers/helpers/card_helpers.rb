@@ -4,6 +4,7 @@ module StripeMock
 
       def get_card(object, card_id, class_name='Customer')
         cards = object[:cards] || object[:sources]
+        card_id = card_id.is_a?(Stripe::Card) ? card_id.id : card_id
         card = cards[:data].find{|cc| cc[:id] == card_id }
         if card.nil?
           if class_name == 'Recipient'
